@@ -1,0 +1,36 @@
+S' -> PROGRAMA
+PROGRAMA -> PROGRAMA_CORPO
+PROGRAMA_CORPO -> 'program' ID '(' PARAM_LIST ')' '{' COMANDOS '}'
+PARAM_LIST -> ε | PARAMS
+PARAMS -> PARAM | PARAMS ',' PARAM
+PARAM -> TYPE ID
+TYPE -> 'int' | 'char' | 'bool'
+COMANDOS -> ε | COMANDOS COMANDO
+COMANDO -> VAR_DECL ';' | ASSIGN ';' | FUNC_DECL | FUNC_CALL ';' | IF_STAT | WHILE_STAT | FOR_STAT | READ ';' | WRITE ';' | '{' COMANDOS '}'
+VAR_DECL -> TYPE ID
+ASSIGN -> ID '=' EXPR
+FUNC_DECL -> 'func' ID '(' PARAM_LIST ')' '{' COMANDOS '}'
+FUNC_CALL -> ID '(' ARG_LIST ')'
+ARG_LIST -> ε | ARGS
+ARGS -> EXPR | ARGS ',' EXPR
+IF_STAT -> 'if' '(' BOOL_EXPR ')' COMANDO | 'if' '(' BOOL_EXPR ')' COMANDO 'else' COMANDO
+WHILE_STAT -> 'while' '(' BOOL_EXPR ')' COMANDO
+FOR_STAT -> 'for' '(' VAR_DECL ';' BOOL_EXPR ';' ASSIGN ')' COMANDO
+        | 'for' '(' VAR_DECL ';' BOOL_EXPR ';' ')' COMANDO
+        | 'for' '(' VAR_DECL ';' ';' ASSIGN ')' COMANDO
+        | 'for' '(' VAR_DECL ';' ';' ')' COMANDO
+        | 'for' '(' ASSIGN ';' BOOL_EXPR ';' ASSIGN ')' COMANDO
+        | 'for' '(' ASSIGN ';' BOOL_EXPR ';' ')' COMANDO
+        | 'for' '(' ASSIGN ';' ';' ASSIGN ')' COMANDO
+        | 'for' '(' ASSIGN ';' ';' ')' COMANDO
+        | 'for' '(' ';' BOOL_EXPR ';' ASSIGN ')' COMANDO
+        | 'for' '(' ';' BOOL_EXPR ';' ')' COMANDO
+        | 'for' '(' ';' ';' ASSIGN ')' COMANDO
+        | 'for' '(' ';' ';' ')' COMANDO
+READ -> 'read' '(' ID ')'
+WRITE -> 'write' '(' EXPR ')'
+EXPR -> EXPR '+' TERM | EXPR '-' TERM | TERM
+TERM -> TERM '*' FACTOR | TERM '/' FACTOR | FACTOR
+FACTOR -> '(' EXPR ')' | NUMBER | ID
+BOOL_EXPR -> EXPR REL_OP EXPR | '!' BOOL_EXPR
+REL_OP -> '==' | '!=' | '<' | '<=' | '>' | '>='

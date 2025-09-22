@@ -1,0 +1,38 @@
+"+"
+"-"
+"*"
+"/"
+
+"=="
+"!="
+">"
+">="
+"<"
+"<="
+"!"
+
+"="
+
+"("
+")"
+"{"
+"}"
+";"
+","
+
+id: {L} ({L} | {D} | _ )*
+
+function = id : "function"
+var = id : "var"
+if = id : "if"
+else = id : "else"
+for = id : "for"
+while = id : "while"
+read = id : "read"
+write = id : "write"
+return = id : "return"
+
+num : {D}+ ("." {D}+)?
+
+: {WS}*
+: {COMMENT}

@@ -1,0 +1,79 @@
+<PROGRAMA> ::= <LISTA_DECLARACOES> ;
+
+<LISTA_DECLARACOES> ::= <DECLARACAO> <LISTA_DECLARACOES>
+                      | î ;
+
+<DECLARACAO> ::= <DECL_FUNCAO>
+               | <DECL_VARIAVEL> ;
+
+<DECL_FUNCAO> ::= function id "(" <LISTA_PARAM> ")" <BLOCO> ;
+
+<LISTA_PARAM> ::= <PARAM>
+                | <PARAM> "," <LISTA_PARAM>
+                | î ;
+
+<PARAM> ::= id ;
+
+<DECL_VARIAVEL> ::= var id ";" ;
+
+<BLOCO> ::= "{" <LISTA_COMANDOS> "}" ;
+
+<LISTA_COMANDOS> ::= <COMANDO> <LISTA_COMANDOS>
+                   | î ;
+
+<COMANDO> ::= <COMANDO_ATRIBUICAO>
+            | <COMANDO_LEITURA>
+            | <COMANDO_ESCRITA>
+            | <COMANDO_IF>
+            | <COMANDO_FOR>
+            | <COMANDO_WHILE>
+            | <COMANDO_RETURN>
+            | <CHAMADA_FUNCAO> ";" ;
+
+<COMANDO_ATRIBUICAO> ::= id "=" <EXPRESSAO> ";" ;
+
+<COMANDO_LEITURA> ::= read "(" id ")" ";" ;
+
+<COMANDO_ESCRITA> ::= write "(" <EXPRESSAO> ")" ";" ;
+
+<COMANDO_IF> ::= if "(" <EXPRESSAO> ")" <BLOCO>
+               | if "(" <EXPRESSAO> ")" <BLOCO> else <BLOCO> ;
+
+<COMANDO_FOR> ::= for "(" <COMANDO_ATRIBUICAO> <EXPRESSAO> ";" <COMANDO_ATRIBUICAO> ")" <BLOCO> ;
+
+<COMANDO_WHILE> ::= while "(" <EXPRESSAO> ")" <BLOCO> ;
+
+<COMANDO_RETURN> ::= return <EXPRESSAO> ";"
+                   | return ";" ;
+
+<CHAMADA_FUNCAO> ::= id "(" <LISTA_ARGS> ")" ;
+
+<LISTA_ARGS> ::= <EXPRESSAO>
+               | <EXPRESSAO> "," <LISTA_ARGS>
+               | î ;
+
+<EXPRESSAO> ::= <EXPR_LOGICA> ;
+
+<EXPR_LOGICA> ::= <EXPR_RELACIONAL>
+                | "!" <EXPR_RELACIONAL>
+                | <EXPR_RELACIONAL> "==" <EXPR_RELACIONAL>
+                | <EXPR_RELACIONAL> "!=" <EXPR_RELACIONAL> ;
+
+<EXPR_RELACIONAL> ::= <EXPR_ARITMETICA>
+                    | <EXPR_ARITMETICA> ">" <EXPR_ARITMETICA>
+                    | <EXPR_ARITMETICA> ">=" <EXPR_ARITMETICA>
+                    | <EXPR_ARITMETICA> "<" <EXPR_ARITMETICA>
+                    | <EXPR_ARITMETICA> "<=" <EXPR_ARITMETICA> ;
+
+<EXPR_ARITMETICA> ::= <TERMO>
+                    | <EXPR_ARITMETICA> "+" <TERMO>
+                    | <EXPR_ARITMETICA> "-" <TERMO> ;
+
+<TERMO> ::= <FATOR>
+          | <TERMO> "*" <FATOR>
+          | <TERMO> "/" <FATOR> ;
+
+<FATOR> ::= id
+          | num
+          | <CHAMADA_FUNCAO>
+          | "(" <EXPRESSAO> ")" ;
